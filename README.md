@@ -1,9 +1,7 @@
 # CrewAI Coding Assistant
 
 A multi-agent coding assistant built on **CrewAI**, running against your local
-**freeLLMAPI** gateway. This is the CrewAI rewrite of the hand-built project in
-`~/Desktop/agent` — same idea, expressed with CrewAI's `Agent` / `Task` / `Crew`
-so it is easier to read and extend. **The original project is untouched.**
+LLMAPI gateway. This is the CrewAI rewrite of the hand-built project
 
 ## How it maps
 
@@ -95,11 +93,6 @@ edited file is copied to `~/.crew_agent_backups/<project>/<timestamp>/` first.
 Point it at a different gateway/model with environment variables (or a `.env`
 file next to `main.py`):
 
-```
-FREELLM_API_KEY=...
-FREELLM_BASE_URL=http://localhost:3001/v1
-FREELLM_MODEL=auto
-```
 
 ## How it differs from the original `~/Desktop/agent`
 

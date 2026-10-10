@@ -20,10 +20,7 @@ from tools import (apply_edit, check_changes, create_file,
                    read_file, run_command, run_project,
                    run_python_file, run_tests, search_code)
 
-# The shared "system prompt" every agent gets. In CrewAI an agent's backstory is
-# the free-text that becomes its system prompt, so we prepend these ground rules
-# to each agent's own backstory. This is the equivalent of the original
-# project's SHARED_PREAMBLE - one place for the rules that apply to everyone.
+
 SYSTEM_PREAMBLE = (
     "You are one agent in a small team working on a real code project.\n"
     "Shared rules for every agent:\n\n"
@@ -103,9 +100,6 @@ def _sys(specific: str) -> str:
 def build_agents() -> dict:
     llm = build_llm()
 
-    # The manager. In a hierarchical crew CrewAI hands this agent built-in
-    # delegation tools, so it decides who does what - no if/else in Python. It
-    # must NOT be given tools of its own and must NOT appear in the agents list.
     distributor = Agent(
         role="Distributor",
         goal=(
@@ -519,9 +513,6 @@ def build_agents() -> dict:
             "Do not approve until all required checks and tests pass."
         ),
 
-        # Testing ONLY. It validates/compiles/runs and reports - it cannot edit
-        # code and does not get the general run_command (that is the Command
-        # Runner's job). It may install a missing package to make tests run.
         tools=[
             check_changes,
             run_tests,
@@ -642,9 +633,6 @@ def build_agents() -> dict:
             "Focus on correctness, task completion, runtime safety, and unintended regressions. "
             "Do not invent problems. Distinguish confirmed issues from uncertainty."
         ),
-        # Review ONLY: it reads and judges the code. It does not run or edit
-        # anything - if it finds a problem it reports it, and the Distributor
-        # sends it back to the Software Engineer.
         tools=[read_file, search_code],
         llm=llm,
         verbose=False,
