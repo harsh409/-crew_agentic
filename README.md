@@ -1,4 +1,4 @@
-# CrewAI Coding Assistant (freeLLMAPI)
+# CrewAI Coding Assistant
 
 A multi-agent coding assistant built on **CrewAI**, running against your local
 **freeLLMAPI** gateway. This is the CrewAI rewrite of the hand-built project in
@@ -9,8 +9,7 @@ so it is easier to read and extend. **The original project is untouched.**
 
 | Piece | File | Job |
 |---|---|---|
-| freeLLMAPI config | `config.py` | the gateway URL / key / model (same values as the original) |
-| The LLM every agent uses | `llm.py` | wraps freeLLMAPI as a CrewAI `LLM` (LiteLLM, `openai/` prefix) |
+| The LLM every agent uses | `llm.py` | wraps LLMAPI as a CrewAI `LLM` (LiteLLM, `openai/` prefix) |
 | Safe file layer | `workspace.py` | the only thing that touches the target repo; every path is jailed |
 | The agents' hands | `tools.py` | CrewAI `@tool`s: list / search / read / edit / create / run / check / **google_search** |
 | The agents | `agents.py` | Distributor (manager) + Explainer, Scope, Coder, Tester, Reviewer |
