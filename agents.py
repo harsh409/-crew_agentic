@@ -274,9 +274,12 @@ def build_agents() -> dict:
 
             "STOP RULE:\n"
             "Explanation -> stop after Code Explainer.\n"
-            "Existing-code change -> stop after Code Reviewer approves, OR after exactly one "
-            "fix cycle (Engineer -> Test -> Review) if the first review found problems.\n"
-            "New project -> same: stop after approval or one fix cycle.\n"
+            "Existing-code change -> stop only after Code Reviewer approves. If the review "
+            "finds any issues, continue the fix cycle (Engineer -> Test -> Review) until "
+            "all issues are fixed and the Code Reviewer approves.\n"
+            "New project -> same: stop only after Code Reviewer approves. If the review "
+            "finds any issues, continue the fix cycle (Engineer -> Test -> Review) until "
+            "all issues are fixed and the Code Reviewer approves.\n"
             "Direct command execution -> stop after Command Runner.\n\n"
 
             "FAILURE RULE:\n"
@@ -624,7 +627,7 @@ def build_agents() -> dict:
             "return values exist and are used correctly. Trace important execution paths "
             "and identify concrete bugs, mismatches, missing changes, or integration issues. "
             "Ignore style preferences, documentation, and test requests unless they directly "
-            "indicate a functional problem. Report only actionable findings."
+            "indicate a functional problem. Report only actionable findings to the distributor."
         ),
         backstory=_sys(
             "You are a terse, practical senior code reviewer. "
